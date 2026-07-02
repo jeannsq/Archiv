@@ -1,0 +1,27 @@
+#!/bin/bash
+while true; do
+    clear
+    echo "========================================="
+    echo "       MENU DE SERVIDOR LINUX"
+    echo "========================================="
+    echo "1. Ver estado de servicios (Apache/Nginx)"
+    echo "2. Monitoreo de espacio en disco (df -h)"
+    echo "3. Listar usuarios logueados"
+    echo "4. Crear usuario nuevo"
+    echo "5. Ver ultimos logs del sistema"
+    echo "6. Actualizar sistema (dnf)"
+    echo "0. Salir"
+    read -p "Seleccione: " opc
+
+    case $opc in
+        1) systemctl status httpd ;;
+        2) df -h ;;
+        3) w ;;
+        4) read -p "Nombre de usuario: " user; sudo useradd $user; echo "Usuario creado" ;;
+        5) tail -n 20 /var/log/messages ;;
+        6) sudo dnf update -y ;;
+        0) break ;;
+        *) echo "Opcion invalida" ;;
+    esac
+    read -p "Presione enter..."
+done
