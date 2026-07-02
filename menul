@@ -1,0 +1,57 @@
+#!/bin/bash
+
+while true; do
+    clear
+    echo "========================================="
+    echo "            MENU DE OPCIONES"
+    echo "    Salinas Quispe Jeanfranco Javier"
+    echo "    77055082@continental.edu.pe"
+    echo "========================================="
+    echo "1. Asignar el nombre de la pc: CMedina"
+    echo "2. Mostrar estructura de /etc (equivalente a arbol)"
+    echo "3. Crear estructura de carpetas en /mnt/datos"
+    echo "4. Borrar estructura de carpetas en /mnt/datos"
+    echo "5. Asignar IP 192.168.0.12"
+    echo "6. \"Virus\" para apagar el equipo"
+    echo "0. Salir"
+    echo "========================================="
+    read -p "Seleccione una opcion: " opc
+
+    case $opc in
+        1) 
+            hostnamectl set-hostname CMedina
+            echo "Nombre cambiado a CMedina. (Puede requerir reinicio)"
+            read -p "Presione enter para continuar..." 
+            ;;
+        2) 
+            # Requiere 'tree'. Si no tienes, usa 'ls -R'
+            tree /etc | head -n 20 
+            read -p "Presione enter para continuar..." 
+            ;;
+        3) 
+            sudo mkdir -p /mnt/datos/CarpetaRaiz/SubCarpeta1 /mnt/datos/CarpetaRaiz/SubCarpeta2
+            echo "Carpetas creadas en /mnt/datos"
+            read -p "Presione enter para continuar..." 
+            ;;
+        4) 
+            sudo rm -rf /mnt/datos/CarpetaRaiz
+            echo "Estructura eliminada de /mnt/datos"
+            read -p "Presione enter para continuar..." 
+            ;;
+        5) 
+            # Requiere conocer el nombre de tu interfaz (ej. eth0 o enp0s3)
+            # Adaptado a la herramienta nmcli (estándar en Rocky)
+            sudo nmcli con mod "System eth0" ipv4.addresses 192.168.0.12/24 ipv4.gateway 192.168.0.1 ipv4.method manual
+            sudo nmcli con up "System eth0"
+            echo "IP configurada. (Verifica el nombre de tu interfaz con 'ip addr')"
+            read -p "Presione enter para continuar..." 
+            ;;
+        6) 
+            echo "El equipo se apagara en 30 segundos..."
+            sudo shutdown -h +0.5 "Simulacion de virus"
+            read -p "Presione enter para continuar..." 
+            ;;
+        0) break ;;
+        *) echo "Opcion no valida" ;;
+    esac
+done
