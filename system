@@ -1,0 +1,40 @@
+@echo off
+:menu
+cls
+echo =========================================
+echo       MENU AVANZADO DE SISTEMA
+echo =========================================
+echo 1. Gestionar Servicios (Detener/Iniciar)
+echo 2. Limpieza profunda de temporales
+echo 3. Reporte de Usuarios del Sistema
+echo 4. Copia de Seguridad de archivos (xCopy)
+echo 0. Salir
+echo =========================================
+set /p opc="Seleccione: "
+
+if %opc%==1 goto serv
+if %opc%==2 goto limpia
+if %opc%==3 goto users
+if %opc%==4 goto backup
+if %opc%==0 exit
+goto menu
+
+:serv
+echo 1. Detener Spooler | 2. Iniciar Spooler
+set /p s="Opcion: "
+if %s%==1 net stop spooler
+if %s%==2 net start spooler
+pause & goto menu
+
+:limpia
+del /q /s %temp%\*
+del /q /s C:\Windows\Temp\*
+echo Limpieza completada. & pause & goto menu
+
+:users
+net user
+pause & goto menu
+
+:backup
+xcopy C:\MisDocumentos D:\Backup /E /I /H /Y
+echo Backup realizado. & pause & goto menu
