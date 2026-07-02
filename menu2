@@ -1,0 +1,106 @@
+@echo off
+:: Configura la codificación de caracteres para mostrar acentos correctamente
+chcp 65001 > nul
+cls
+
+:menu
+echo ====================================
+echo                 MENÚ
+echo ====================================
+echo 1. Apagar el Equipo
+echo 2. Reiniciar el equipo
+echo 3. Cerrar sesión
+echo 4. Salir
+echo ====================================
+
+:: El comando choice limita las opciones a 1, 2, 3 y 4
+choice /c 1234 /m "Seleccione una opción:"
+
+:: ERRORLEVEL evalúa de mayor a menor obligatoriamente
+if errorlevel 4 goto salir
+if errorlevel 3 goto cerrar_sesion
+if errorlevel 2 goto reiniciar
+if errorlevel 1 goto apagar
+
+:apagar
+echo Apagando el equipo en 60 segundos...
+shutdown /s /t 60
+goto salir
+
+:reiniciar
+echo Reiniciando el equipo...
+shutdown /r /t 0
+goto salir
+
+:cerrar_sesion
+echo Cerrando sesión...
+shutdown /l
+goto salir
+
+:salir
+echo Saliendo...
+pause
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/sh
+
+mostrar_menu() {
+    echo "======================"
+    echo "        MENÚ"
+    echo "======================"
+    echo "1) Apagar el equipo"
+    echo "2) Reiniciar el equipo"
+    echo "3) Cerrar sesión"
+    echo "4) Salir"
+    echo "======================"
+}
+
+opcion=0
+
+# El bucle se repite hasta que se seleccione la opción 4
+while [ "$opcion" -ne 4 ]; do
+    mostrar_menu
+    printf "Seleccione una opción (1-4): "
+    read opcion
+
+    case $opcion in
+        1)
+            echo "Apagando el equipo..."
+            # shutdown -h now # Descomenta para activar
+            break
+            ;;
+        2)
+            echo "Reiniciando el equipo..."
+            # shutdown -r now # Descomenta para activar
+            break
+            ;;
+        3)
+            echo "Cerrando sesión..."
+            # exit # O el comando de tu entorno gráfico
+            break
+            ;;
+        4)
+            echo "Saliendo del script. ¡Adiós!"
+            ;;
+        *)
+            echo "Opción inválida. Intente de nuevo."
+            echo ""
+            ;;
+    esac
+done
