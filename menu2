@@ -82,12 +82,12 @@ while [ "$opcion" -ne 4 ]; do
     case $opcion in
         1)
             echo "Apagando el equipo..."
-            # shutdown -h now # Descomenta para activar
+            # shutdown -h now
             break
             ;;
         2)
             echo "Reiniciando el equipo..."
-            # shutdown -r now # Descomenta para activar
+            # shutdown -r now
             break
             ;;
         3)
